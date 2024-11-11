@@ -3,8 +3,11 @@
 <div class="main-container">
     <!-- Colonne de gauche : Contenu -->
     <div class="content-container">
-      <div class="card" *ngFor="let sg of sgList">
-        <p-accordion>
+      
+      <div *ngFor="let sg of sgList">
+      <div class="card" >
+        
+        <p-accordion >
           <p-accordionTab>
             <ng-template pTemplate="header">
               <div>
@@ -23,6 +26,7 @@
           </p-accordionTab>
         </p-accordion>
       </div>
+    </div>
     </div>
   
     <!-- Divider vertical -->

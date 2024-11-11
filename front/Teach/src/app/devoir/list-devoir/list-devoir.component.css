@@ -4,6 +4,17 @@ html,body {
   background-color: #f7f5f1;
   height: 1000px;
 }
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 5px;
+}
 
 
 .devoir-container {

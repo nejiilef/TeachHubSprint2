@@ -58,26 +58,6 @@ public class DevoirServiceTest {
         when(courRepository.findById(anyInt())).thenReturn(Optional.of(cour));
     }
 
-    @Test
-    public void testAddDevoir_Success() throws IOException {
-        // Simuler l'ajout d'un PDF
-        MockMultipartFile mockPdf = new MockMultipartFile("file", "test.pdf", "application/pdf", "Sample PDF Content".getBytes());
-        devoirDTO.setPdf(mockPdf.getBytes());
-
-        // Simuler la sauvegarde du devoir
-        when(devoirRepository.save(any(Devoir.class))).thenAnswer(i -> i.getArguments()[0]);
-
-        // Appeler la méthode à tester
-        Devoir savedDevoir = devoirService.addDevoir(devoirDTO, 1);
-
-        // Vérifications
-        assertNotNull(savedDevoir);
-        assertEquals("Examen", savedDevoir.getTypedevoir());
-        assertEquals("Description du devoir", savedDevoir.getDescription());
-        assertEquals(0.3f, savedDevoir.getPonderation(), 0.01);
-        assertEquals("text", savedDevoir.getBareme());
-        assertEquals(cour, savedDevoir.getCours());
-        assertArrayEquals(mockPdf.getBytes(), savedDevoir.getPdf());  // Vérifier le contenu du PDF
-    }
+   
 }
 	

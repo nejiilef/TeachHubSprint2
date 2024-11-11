@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CoursService } from '../service/cours.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-deposer-document',
@@ -14,7 +15,7 @@ export class DeposerDocumentComponent {
   uploadMessage: string = '';
   uploadSuccess: boolean = false;
 
-  constructor(private coursService: CoursService) {}
+  constructor(private coursService: CoursService,private router :Router) {}
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
@@ -44,12 +45,14 @@ export class DeposerDocumentComponent {
             this.uploadMessage = 'Document uploaded successfully!';
             this.uploadSuccess = true;
             this.isUploading = false;
+            
           },
           error => {
             console.error('Error uploading document:', error);
             this.uploadMessage = 'Error uploading document, please try again.';
             this.uploadSuccess = false;
             this.isUploading = false;
+            this.router.navigate(['/cours']);
           }
         );
     } else {

@@ -45,6 +45,7 @@ console.log(this.selectedEmail)
     this.service.addEtudiantSousGroupe(this.idSg,this.selectedEmail!).subscribe(
       (response) => {
         console.log(response);
+        this.router.navigate(["/sous-groupe"]);
       },
       (error) => {
         console.error('Erreur lors de l\'ajout de l\'étudiant', error);

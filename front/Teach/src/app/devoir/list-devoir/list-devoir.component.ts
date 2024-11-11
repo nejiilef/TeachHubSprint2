@@ -202,28 +202,49 @@ invitationTeacherMessageClass: string = ''; // Classe CSS pour style de message
 
   inviteStudent() {
     this.coursService.inviteStudentByEmail(this.courseCode, this.studentEmail).subscribe(
-      () => {
+      (response) => {
+        console.log('Réponse du serveur :', response); 
         this.invitationStudentSuccess = "L'étudiant a été invité avec succès";
-        this.invitationStudentMessageClass = 'success-message'; // Classe CSS pour succès
+        this.invitationStudentMessageClass = 'success-message';
         this.studentEmail = '';
       },
       (error) => {
-        this.invitationStudentError = "L'invitation a échoué";
-        this.invitationStudentMessageClass = 'error-message'; // Classe CSS pour erreur
+        console.error('Erreur lors de l\'invitation de l\'étudiant :', error); 
+        if (error.status === 400) {
+          this.invitationStudentError = "Demande incorrecte. Vérifiez l'email et le code du cours.";
+        } else if (error.status === 500) {
+          this.invitationStudentError = "Erreur serveur. Veuillez réessayer plus tard.";
+        } else {
+          this.invitationStudentSuccess = "L'étudiant a été invité avec succès";
+          this.invitationStudentMessageClass = 'success-message';
+        }
+        this.invitationStudentMessageClass = 'error-message';
       }
     );
   }
   
+  
   inviteTeacher() {
     this.coursService.inviteTeacherByEmail(this.courseCode, this.teacherEmail).subscribe(
-      () => {
+      (response) => {
+        console.log('Réponse du serveur :', response);
         this.invitationTeacherSuccess = "L'enseignant a été invité avec succès";
-        this.invitationTeacherMessageClass = 'success-message'; // Classe CSS pour succès
+        this.invitationTeacherMessageClass = 'success-message';
+        this.invitationTeacherError = ""; 
         this.teacherEmail = '';
       },
       (error) => {
-        this.invitationTeacherError = "L'invitation a échoué";
-        this.invitationTeacherMessageClass = 'error-message'; // Classe CSS pour erreur
+        console.error('Erreur lors de l\'invitation de l\'enseignant :', error);
+        this.invitationTeacherSuccess = ""; 
+        if (error.status === 400) {
+          this.invitationTeacherError = "Demande incorrecte. Vérifiez l'email et le code du cours.";
+        } else if (error.status === 500) {
+          this.invitationTeacherError = "Erreur serveur. Veuillez réessayer plus tard.";
+        } else {
+          this.invitationTeacherSuccess = "L'enseignant a été invité avec succès";
+          this.invitationStudentMessageClass = 'success-message';
+        }
+        this.invitationTeacherMessageClass = 'error-message';
       }
     );
   }
